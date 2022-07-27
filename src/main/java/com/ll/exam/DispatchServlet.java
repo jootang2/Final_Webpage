@@ -25,7 +25,7 @@ public class DispatchServlet extends HttpServlet {
 //        http://localhost:8081/usr/article/list/free?~~~~
 //        에서 /usr/article/list/free 부분만 가져옴 !
 
-        System.out.println(url);
+//        System.out.println(url);
 
         switch(url){
             case "/usr/article/list/free" :
