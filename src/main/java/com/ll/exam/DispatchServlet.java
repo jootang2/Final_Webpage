@@ -2,7 +2,6 @@ package com.ll.exam;
 
 import com.ll.exam.article.ArticleController;
 import com.ll.exam.member.MemberController;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,18 +13,20 @@ import java.io.IOException;
 public class DispatchServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         Rq rq = new Rq(req,resp);
 
         MemberController memberController = new MemberController();
         ArticleController articleController = new ArticleController();
 
-        System.out.println(rq.getActionPath());
+
 
         switch (rq.getMethod()){
             case "GET":
-
                 switch(rq.getActionPath()){
+                    case "/usr/article/detail" :
+                        articleController.showDetail(rq);
+                        break;
                     case "/usr/article/list" :
                         articleController.showList(rq);
                         break;
@@ -40,7 +41,7 @@ public class DispatchServlet extends HttpServlet {
 
             case "POST":
                 switch(rq.getActionPath()){
-                    case "/usr/article/write " :
+                    case "/usr/article/write" :
                         articleController.doWrite(rq);
                         break;
                 }
@@ -51,7 +52,7 @@ public class DispatchServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         doGet(req,resp);
     }
 }

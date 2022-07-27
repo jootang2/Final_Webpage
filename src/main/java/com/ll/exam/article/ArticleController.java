@@ -3,19 +3,17 @@ package com.ll.exam.article;
 import com.ll.exam.Rq;
 import com.ll.exam.article.dto.ArticleDto;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleController {
-
     private ArticleService articleService;
 
-    public ArticleController(){
+    public ArticleController() {
         articleService = new ArticleService();
     }
 
-    public void showList(Rq rq){
+    public void showList(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
 
         rq.setAttr("articles", articleDtos);
@@ -32,10 +30,15 @@ public class ArticleController {
 
         long id = articleService.write(title, body);
 
-        rq.appendBody("%d번 게시물이 생성되었습니다.".formatted(id));
-
-
+        rq.appendBody("%d번 게시물이 생성 되었습니다.".formatted(id));
     }
 
+    public void showDetail(Rq rq) {
+        long id = 1;
 
+        ArticleDto articleDto = articleService.findById(id);
+
+        rq.setAttr("article", articleDto);
+        rq.view("usr/article/detail");
+    }
 }
