@@ -22,21 +22,38 @@ public class DispatchServlet extends HttpServlet {
 
         String url = req.getRequestURI();
 
-//        http://localhost:8081/usr/article/list/free?~~~~
-//        에서 /usr/article/list/free 부분만 가져옴 !
+        switch (rq.getMethod()){
+            case "GET":
 
-//        System.out.println(url);
+                switch(rq.getPath()){
+                    case "/usr/article/list/free" :
+                        articleController.showList(rq);
+                        break;
+                    case "/usr/article/write/free" :
+                        articleController.showWrite(rq);
+                        break;
+                    case "/usr/member/login" :
+                        memberController.showLogin(rq);
+                        break;
+                }
+                break;
 
-        switch(url){
-            case "/usr/article/list/free" :
-                articleController.showList(rq);
-                break;
-            case "/usr/article/write/free" :
-                articleController.showWrite(rq);
-                break;
-            case "/usr/member/login" :
-                memberController.showLogin(rq);
+            case "POST":
+                switch(rq.getPath()){
+                    case "/usr/article/write/free" :
+                        articleController.doWrite(rq);
+                        break;
+                }
                 break;
         }
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req,resp);
     }
 }
+
+
