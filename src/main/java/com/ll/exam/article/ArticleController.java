@@ -35,14 +35,14 @@ public class ArticleController {
     public void showDetail(Rq rq) {
         long id = rq.getPathValueByIndex(1,0);
         if( id == 0){
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if( articleDto == null ){
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -55,14 +55,14 @@ public class ArticleController {
     public void doDelete(Rq rq) {
         long id = rq.getPathValueByIndex(1,0);
         if( id == 0){
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if( articleDto == null ){
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -74,25 +74,36 @@ public class ArticleController {
     public void showModify(Rq rq) {
         long id = rq.getPathValueByIndex(1,0);
         if( id == 0){
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
+
 
         ArticleDto articleDto = articleService.findById(id);
 
         if( articleDto == null ){
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
-
-
-
         rq.setAttr("article", articleDto);
         rq.view("usr/article/modify");
     }
 
     public void doModify(Rq rq) {
         long id = rq.getPathValueByIndex(1,0);
+        if( id == 0){
+            rq.historyBack("번호를 입력해주세요.");
+            return;
+        }
+
+
+        ArticleDto articleDto = articleService.findById(id);
+
+        if( articleDto == null ){
+            rq.historyBack("해당 글이 존재하지 않습니다.");
+            return;
+        }
+
         String title = rq.getParam("title" , "");
         String body = rq.getParam("body","");
 
