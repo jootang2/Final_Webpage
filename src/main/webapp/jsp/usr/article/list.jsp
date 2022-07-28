@@ -7,6 +7,8 @@
     List<ArticleDto> articles = (List<ArticleDto>)request.getAttribute("articles");
 
 %>
+
+<%@ include file = "../common/head.jspf" %>
 <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -26,4 +28,6 @@
        </ul>
    </div>
 </section>
+
+<%@ include file= "../common/foot.jspf" %>
 
